@@ -9,11 +9,7 @@ export default class Main extends Component {
 
     this.state = {
       novaTarefa: '',
-      tarefas: [
-        'Fazer café',
-        'Beber água',
-        'Estudar',
-      ],
+      tarefas: [],
       index: -1,
     };
 
@@ -21,6 +17,34 @@ export default class Main extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  /*
+    useEffect(() => {
+      const tarefas = JSON.parse(localStorage.getItem('tarefas'));
+
+      if (!tarefas) return;
+      setTarefas({ tarefas });
+    }, [])
+  */
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem('tarefas'));
+
+    if (!tarefas) return;
+    this.setState({ tarefas });
+  }
+
+  /*
+    useEffect(() => {
+      localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    }, [tarefas])
+  */
+  componentDidUpdate(prevState) {
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return;
+
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
   }
 
   handleInputChange(e) {
