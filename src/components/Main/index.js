@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaPlus, FaEdit, FaWindowClose } from 'react-icons/fa';
 
 import './styles.css';
 
@@ -8,6 +9,11 @@ export default class Main extends Component {
 
     this.state = {
       novaTarefa: '',
+      tarefas: [
+        'Fazer café',
+        'Beber água',
+        'Estudar',
+      ],
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -20,21 +26,33 @@ export default class Main extends Component {
   }
 
   render() {
-    const { novaTarefa } = this.state;
+    const { novaTarefa, tarefas } = this.state;
 
     return (
       <div className="main">
         <h1>Lista de tarefas</h1>
 
-        <form action="#">
-          <input type="text" onChange={this.handleInputChange} />
-          <button type="submit">Enviar</button>
+        <form action="#" className="form">
+          <input
+            type="text"
+            onChange={this.handleInputChange}
+            value={novaTarefa}
+          />
+          <button type="submit">
+            <FaPlus />
+          </button>
         </form>
 
-        <ul>
-          <li>
-            {novaTarefa}
-          </li>
+        <ul className="tarefas">
+          {tarefas.map((tarefa) => (
+            <li key={tarefa}>
+              {tarefa}
+              <div>
+                <FaEdit className="edit" />
+                <FaWindowClose className="delete" />
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     );
