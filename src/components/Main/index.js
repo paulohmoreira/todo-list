@@ -18,6 +18,8 @@ export default class Main extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleInputChange(e) {
@@ -41,6 +43,20 @@ export default class Main extends Component {
     });
   }
 
+  static handleEdit(e, index) {
+    console.log('Edit ', index);
+  }
+
+  handleDelete(e, index) {
+    const { tarefas } = this.state;
+    const novasTarefas = [...tarefas];
+    novasTarefas.splice(index, 1);
+
+    this.setState({
+      tarefas: [...novasTarefas],
+    });
+  }
+
   render() {
     const { novaTarefa, tarefas } = this.state;
 
@@ -60,12 +76,18 @@ export default class Main extends Component {
         </form>
 
         <ul className="tarefas">
-          {tarefas.map((tarefa) => (
+          {tarefas.map((tarefa, index) => (
             <li key={tarefa}>
               {tarefa}
               <div>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit
+                  className="edit"
+                  onClick={(e) => this.handleEdit(e, index)}
+                />
+                <FaWindowClose
+                  className="delete"
+                  onClick={(e) => this.handleDelete(e, index)}
+                />
               </div>
             </li>
           ))}
