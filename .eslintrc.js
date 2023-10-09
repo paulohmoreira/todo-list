@@ -28,6 +28,8 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': 0,
+    'react/state-in-contructor': 0,
+    'react/forbid-prop-types': 0,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 
